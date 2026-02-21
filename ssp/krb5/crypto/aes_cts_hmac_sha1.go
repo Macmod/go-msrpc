@@ -154,7 +154,7 @@ func (c *AESCTSHMACSHA1) unwrap(ctx context.Context, seqNum uint64, forSign, for
 
 	// write { ec | E"header" | confounder }
 	// write { E"data" }
-	if err := crypto.WriteHash(eB, sgn[16:], forSeal); err != nil {
+	if err := crypto.WriteHash(eB, sgn[EC:], forSeal); err != nil {
 		return false, fmt.Errorf("write encryption buffers: %w", err)
 	}
 
