@@ -150,7 +150,7 @@ func (c *AESCTSHMACSHA1) Unwrap(ctx context.Context, seqNum uint64, forSign, for
 
 func (c *AESCTSHMACSHA1) unwrap(ctx context.Context, seqNum uint64, forSign, forSeal [][]byte, sgn []byte) (bool, error) {
 	// buffer for decryption.
-	eB, hdr := bytes.NewBuffer(nil), sgn[:16]
+	eB, hdr := bytes.NewBuffer(nil), sgn[:EC]
 
 	// write { ec | E"header" | confounder }
 	// write { E"data" }
