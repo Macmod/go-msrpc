@@ -67,7 +67,7 @@ func (c *AESCTSHMACSHA1) flags() uint8 {
 }
 
 const (
-	EC  = 16
+	EC  = 0
 	RRC = 28
 )
 
@@ -98,9 +98,9 @@ func (c *AESCTSHMACSHA1) wrap(ctx context.Context, seqNum uint64, forSign, forSe
 	}
 
 	// gen ec.
-	ec := bytes.Repeat([]byte{0xFF}, EC)
-	// set ec value (16). (pad = 1, block_size = 16).
-	binary.BigEndian.PutUint16(hdr[4:6], EC)
+	ec := []byte{}
+	// set ec value.
+	binary.BigEndian.PutUint16(hdr[4:6], uint16(EC))
 
 	iH, err := c.IntegrityHash()
 	if err != nil {
@@ -149,7 +149,6 @@ func (c *AESCTSHMACSHA1) Unwrap(ctx context.Context, seqNum uint64, forSign, for
 }
 
 func (c *AESCTSHMACSHA1) unwrap(ctx context.Context, seqNum uint64, forSign, forSeal [][]byte, sgn []byte) (bool, error) {
-
 	// buffer for decryption.
 	eB, hdr := bytes.NewBuffer(nil), sgn[:16]
 
