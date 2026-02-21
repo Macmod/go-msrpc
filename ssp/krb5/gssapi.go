@@ -254,7 +254,6 @@ func (m *Mechanism) Unwrap(ctx context.Context, tok *gssapi.MessageToken) (*gssa
 
 	tokEx, err := m.UnwrapEx(ctx, &gssapi.MessageTokenEx{
 		QoP:       tok.QoP,
-		Signature: tok.Signature,
 		Payloads: []*gssapi.PayloadEx{
 			{Capabilities: tok.Capabilities, Payload: tok.Payload},
 		},
